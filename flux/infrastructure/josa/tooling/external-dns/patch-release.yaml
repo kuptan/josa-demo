@@ -1,0 +1,19 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: external-dns
+  namespace: external-dns
+spec:
+  values:
+    provider: azure
+    sources:
+      - service
+      - ingress
+      # - istio-virtualservice
+    domainFilters:
+      - ops.kubechamp.gq
+    txtOwnerId: josa.external-dns-public
+  valuesFrom:
+    - kind: Secret
+      name: external-dns-credentials
+      valuesKey: external-dns-credentials.yaml
