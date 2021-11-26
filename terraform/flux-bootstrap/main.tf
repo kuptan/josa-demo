@@ -36,6 +36,7 @@ module "flux" {
   flux_auth_type    = "ssh"
   flux_ssh_scan_url = var.flux_ssh_scan_url
   git_url           = var.git_url
+  git_branch        = "main"
   flux_target_path  = var.flux_target_path
 
   sealed_secrets_chart = {
