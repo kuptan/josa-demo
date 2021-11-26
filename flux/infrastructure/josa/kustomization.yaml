@@ -4,4 +4,3 @@ resources:
   - repos
   - namespaces
   - tooling
-  - cert-issuer
