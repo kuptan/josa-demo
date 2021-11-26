@@ -1,7 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - git@github.com:kube-champ/josa-demo/flux/infrastructure/base/ingress-nginx
+  - ../../../base/ingress-nginx
   - class.yaml
 patchesStrategicMerge:
   - patch-release.yaml
