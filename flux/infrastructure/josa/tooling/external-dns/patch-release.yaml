@@ -11,7 +11,7 @@ spec:
       - ingress
       # - istio-virtualservice
     domainFilters:
-      - ops.kubechamp.gq
+      - josa.kubechamp.gq
     txtOwnerId: josa.external-dns-public
   valuesFrom:
     - kind: Secret
