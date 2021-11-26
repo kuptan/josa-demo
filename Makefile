@@ -28,3 +28,6 @@ flux-alerts-slack:
 	kubeseal --format=yaml --cert=.secrets/cert.pem \
 		--scope=strict \
 		--namespace=flux-system < .secrets/flux-slack-url.json > .secrets/generated/flux-slack-url.yaml
+
+watch-hello:
+	@while sleep 5; do curl --insecure -s https://hello.josa.kubechamp.gq/ | grep -A 2 "message" | sed -n 2p; done
