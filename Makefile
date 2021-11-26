@@ -29,5 +29,18 @@ flux-alerts-slack:
 		--scope=strict \
 		--namespace=flux-system < .secrets/flux-slack-url.json > .secrets/generated/flux-slack-url.yaml
 
+up:
+	cd terraform/infra; terraform apply -auto-approve
+	cd terraform/infra; terraform output kubeconfig > ../../kubeconfig_josa
+	sleep 5s;
+
+	cd terraform/flux-bootstrap; terraform apply -auto-approve
+	cd terraform/flux-bootstrap; terraform output sealed_secrets_generated_cert > ../../.secrets/cert.pem
+
+down:
+	cd terraform/flux-bootstrap; terraform destroy -auto-approve
+	sleep 5s;
+	cd terraform/infra; terraform destroy -auto-approve
+
 watch-hello:
 	@while sleep 5; do curl --insecure -s https://hello.josa.kubechamp.gq/ | grep -A 2 "message" | sed -n 2p; done
