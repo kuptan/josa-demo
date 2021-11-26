@@ -18,3 +18,13 @@ seal-file:
 
 external-dns:
 	make seal-file name=external-dns-credentials ns=external-dns file=.secrets/external-dns-credentials.yaml
+
+flux-alerts-slack:
+	kubectl -n flux-system create secret generic flux-slack-url \
+		--from-literal=address=${JOSA_SLACK_URL} \
+		--dry-run=client \
+		-o json > .secrets/flux-slack-url.json
+
+	kubeseal --format=yaml --cert=.secrets/cert.pem \
+		--scope=strict \
+		--namespace=flux-system < .secrets/flux-slack-url.json > .secrets/generated/flux-slack-url.yaml

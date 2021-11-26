@@ -1,0 +1,20 @@
+apiVersion: notification.toolkit.fluxcd.io/v1beta1
+kind: Alert
+metadata:
+  name: kustomize-git-general
+spec:
+  providerRef:
+    name: slack
+  eventSeverity: info
+  eventSources:
+    - kind: Kustomization
+      name: '*'
+    - kind: GitRepository
+      name: '*'
+  # - kind: HelmRepository
+  #   name: podinfo
+  # - kind: HelmChart
+  #   name: default-podinfo
+  # - kind: HelmRelease
+  #   name: podinfo
+  #   namespace: default

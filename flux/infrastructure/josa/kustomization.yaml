@@ -4,3 +4,4 @@ resources:
   - repos
   - namespaces
   - tooling
+  - alerts
