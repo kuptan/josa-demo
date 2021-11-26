@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello-kube
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: hello.josa.kubechamp.gq
+    external-dns.alpha.kubernetes.io/target: nginx.josa.kubechamp.gq
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+    kubernetes.io/tls-acme: "true"
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+      - hello.josa.kubechamp.gq
+    secretName: hellokube-ingress-tls
+  rules:
+  - host: hello.josa.kubechamp.gq
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hello-kube
+            port:
+              number: 8080
