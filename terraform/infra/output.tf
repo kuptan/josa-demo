@@ -14,4 +14,3 @@ output "admin_kubeconfig" {
   sensitive = true
   value     = azurerm_kubernetes_cluster.this.kube_admin_config_raw
 }
-

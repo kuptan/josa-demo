@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-kube
+  labels:
+    app: hello-kube
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello-kube
+  template:
+    metadata:
+      labels:
+        app: hello-kube
+    spec:
+      containers:
+      - name: hello-kube
+        image: paulbouwer/hello-kubernetes:1.10
+        ports:
+          - name: http
+            containerPort: 8080
+            protocol: TCP
+        env:
+          - name: MESSAGE
+            value: "Hello JOSA"
