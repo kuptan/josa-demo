@@ -1,0 +1,59 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: monitoring
+spec:
+  values:
+    grafana:
+      enabled: true
+
+      ingress:
+        enabled: true
+
+        ingressClassName: nginx
+
+        annotations:
+          ingress.kubernetes.io/ssl-redirect: "true"
+          kubernetes.io/tls-acme: "true"
+          cert-manager.io/cluster-issuer: letsencrypt-staging
+          external-dns.alpha.kubernetes.io/hostname: grafana.josa.kubechamp.gq
+          external-dns.alpha.kubernetes.io/target: nginx.josa.kubechamp.gq
+
+        hosts:
+          - grafana.josa.kubechamp.gq
+
+        tls:
+          - secretName: grafana-ingress-tls
+            hosts:
+              - grafana.josa.kubechamp.gq
+
+        dashboardProviders:
+          dashboardproviders.yaml:
+            apiVersion: 1
+            providers:
+                - name: 'flux'
+                  orgId: 1
+                  folder: ''
+                  type: file
+                  disableDeletion: false
+                  editable: true
+                  options:
+                    path: /var/lib/grafana/dashboards/flux
+                - name: 'nginx'
+                  orgId: 1
+                  folder: ''
+                  type: file
+                  disableDeletion: false
+                  editable: true
+                  options:
+                    path: /var/lib/grafana/dashboards/nginx
+
+        dashboards:
+          nginx:
+            gnetId: 9614
+            revision: 1
+            datasource: Prometheus
+        
+        dashboardsConfigMaps:
+          flux: grafana-dashboard-flux

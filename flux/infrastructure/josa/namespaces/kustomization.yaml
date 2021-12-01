@@ -4,3 +4,4 @@ resources:
   - external-dns.yaml
   - ingress-nginx.yaml
   - cert-manager.yaml
+  - monitoring.yaml
