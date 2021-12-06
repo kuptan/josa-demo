@@ -5,10 +5,17 @@ metadata:
   namespace: monitoring
 spec:
   values:
+    commonLabels:
+      prometheusDiscovery: enabled
+      
     prometheus:
       prometheusSpec:
-        serviceMonitorNamespaceSelector: {}
-        serviceMonitorSelector: {}
+        serviceMonitorNamespaceSelector:
+          matchLabels:
+            monitoring: enabled
+        serviceMonitorSelector:
+          matchLabels:
+            prometheusDiscovery: enabled
 
     grafana:
       enabled: true
