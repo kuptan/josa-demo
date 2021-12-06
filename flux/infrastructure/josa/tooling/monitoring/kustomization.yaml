@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ../../../base/prometheus-stack
   - dashboards
+  - flux-pod-monitor.yaml
 
 patchesStrategicMerge:
   - patch-release.yaml

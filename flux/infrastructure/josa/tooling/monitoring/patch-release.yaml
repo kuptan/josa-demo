@@ -7,13 +7,22 @@ spec:
   values:
     commonLabels:
       prometheusDiscovery: enabled
-      
+
     prometheus:
       prometheusSpec:
         serviceMonitorNamespaceSelector:
           matchLabels:
             monitoring: enabled
+
         serviceMonitorSelector:
+          matchLabels:
+            prometheusDiscovery: enabled
+
+        podMonitorNamespaceSelector:
+          matchLabels:
+            monitoring: enabled
+            
+        podMonitorSelector:
           matchLabels:
             prometheusDiscovery: enabled
 
