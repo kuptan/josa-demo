@@ -7,9 +7,8 @@ spec:
   values:
     prometheus:
       prometheusSpec:
-        serviceMonitorNamespaceSelector:
-          matchLabels:
-            monitoring: prometheus
+        serviceMonitorNamespaceSelector: {}
+        serviceMonitorSelector: {}
 
     grafana:
       enabled: true
