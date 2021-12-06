@@ -39,6 +39,10 @@ module "flux" {
   git_branch        = "main"
   flux_target_path  = var.flux_target_path
 
+  namespace_labels = {
+    monitoring = "enabled"
+  }
+
   sealed_secrets_chart = {
     repository       = "https://bitnami-labs.github.io/sealed-secrets"
     chart_version    = "1.16.1"

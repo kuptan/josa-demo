@@ -18,8 +18,13 @@ spec:
           matchLabels:
             prometheusDiscovery: enabled
 
-        podMonitorNamespaceSelector: {}
-        podMonitorSelector: {}
+        podMonitorNamespaceSelector:
+          matchLabels:
+            monitoring: enabled
+            
+        podMonitorSelector:
+          matchLabels:
+            prometheusDiscovery: enabled
 
     grafana:
       enabled: true
