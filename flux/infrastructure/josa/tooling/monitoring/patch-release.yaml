@@ -5,6 +5,12 @@ metadata:
   namespace: monitoring
 spec:
   values:
+    prometheus:
+      prometheusSpec:
+        serviceMonitorNamespaceSelector:
+          matchLabels:
+            monitoring: prometheus
+
     grafana:
       enabled: true
 
@@ -28,32 +34,32 @@ spec:
             hosts:
               - grafana.josa.kubechamp.gq
 
-        dashboardProviders:
-          dashboardproviders.yaml:
-            apiVersion: 1
-            providers:
-                - name: 'flux'
-                  orgId: 1
-                  folder: ''
-                  type: file
-                  disableDeletion: false
-                  editable: true
-                  options:
-                    path: /var/lib/grafana/dashboards/flux
-                - name: 'nginx'
-                  orgId: 1
-                  folder: ''
-                  type: file
-                  disableDeletion: false
-                  editable: true
-                  options:
-                    path: /var/lib/grafana/dashboards/nginx
+      dashboardProviders:
+        dashboardproviders.yaml:
+          apiVersion: 1
+          providers:
+              - name: 'flux'
+                orgId: 1
+                folder: ''
+                type: file
+                disableDeletion: false
+                editable: true
+                options:
+                  path: /var/lib/grafana/dashboards/flux
+              - name: 'nginx'
+                orgId: 1
+                folder: ''
+                type: file
+                disableDeletion: false
+                editable: true
+                options:
+                  path: /var/lib/grafana/dashboards/nginx
 
-        dashboards:
-          nginx:
-            gnetId: 9614
-            revision: 1
-            datasource: Prometheus
-        
-        dashboardsConfigMaps:
-          flux: grafana-dashboard-flux
+      dashboards:
+        nginx:
+          gnetId: 9614
+          revision: 1
+          datasource: Prometheus
+      
+      dashboardsConfigMaps:
+        flux: grafana-dashboard-flux
