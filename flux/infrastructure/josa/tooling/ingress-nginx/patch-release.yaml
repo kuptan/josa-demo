@@ -4,8 +4,15 @@ metadata:
   name: ingress-nginx
   namespace: ingress-nginx
 spec:
+  dependsOn:
+    - kube-prometheus-stack
   values:
     controller:
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: nginx.josa.kubechamp.gq
