@@ -5,7 +5,9 @@ metadata:
   namespace: ingress-nginx
 spec:
   dependsOn:
-    - name: monitoring/kube-prometheus-stack
+    - name: kube-prometheus-stack
+      namespace: monitoring
+
   values:
     controller:
       metrics:
