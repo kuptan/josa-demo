@@ -31,23 +31,25 @@ flux-alerts-slack:
 
 up:
 	cd terraform/infra; terraform apply -auto-approve
-	cd terraform/infra; terraform output kubeconfig > ../../kubeconfig_josa
+	cd terraform/infra; terraform output -raw kubeconfig > ../../kubeconfig_josa
 	sleep 5s;
 
 	cd terraform/flux-bootstrap; terraform apply -auto-approve
-	cd terraform/flux-bootstrap; terraform output sealed_secrets_generated_cert > ../../.secrets/cert.pem
+	cd terraform/flux-bootstrap; terraform output -raw sealed_secrets_generated_cert > ../../.secrets/cert.pem
 
-	cd teraform/flux-bootstrap; terraform output flux_generated_public_key
+	cd terraform/flux-bootstrap; terraform output -raw flux_generated_public_key > ../../git_ssh.pub
 
 	echo ">> moving sealed secrets cert into .secrets/cert.pem"
-	cd teraform/flux-bootstrap; terraform output sealed_secrets_generated_cert > ../../.secrets/cert.pem
+	cd terraform/flux-bootstrap; terraform output sealed_secrets_generated_cert > ../../.secrets/cert.pem
 	
 	echo ">> generating sealed secrets - external dn"
 	make external-dns
+
 	mv .secrets/generated/external-dns-credentials.yaml flux/infrastructure/josa/tooling/external-dns/external-dns-credentials.yaml
 
 	echo ">> generating sealed secrets - flux slack"
 	make flux-alerts-slack
+	
 	mv .secrets/generated/flux-slack-url.yaml flux/alerts/josa/alerts/secret.yaml
 
 	git add .
