@@ -11,3 +11,4 @@ spec:
   path: ./flux/infrastructure/josa
   prune: true
   validation: client
+  

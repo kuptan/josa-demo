@@ -61,5 +61,11 @@ down:
 	sleep 5s;
 	cd terraform/infra; terraform destroy -auto-approve
 
+flux-restart:
+	kubectl rollout restart deploy/notification-controller -n flux-system
+	kubectl rollout restart deploy/helm-controller -n flux-system
+	kubectl rollout restart deploy/kustomize-controller -n flux-system
+	kubectl rollout restart deploy/source-controller -n flux-system
+
 watch-hello:
 	@while sleep 5; do curl --insecure -s https://hello.josa.kubechamp.gq/ | grep -A 2 "message" | sed -n 2p; done
