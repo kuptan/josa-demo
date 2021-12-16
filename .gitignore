@@ -6,3 +6,5 @@
 .secrets
 
 **/kubeconfig*
+
+git_ssh.pub
