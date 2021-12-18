@@ -23,4 +23,4 @@ spec:
             protocol: TCP
         env:
           - name: MESSAGE
-            value: "Hello JOSA!"
+            value: "Hello JOSA! This is from Flux!"
